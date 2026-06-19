@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "default_budget": 150,
+  "max_allowed_budget": 8192,
+  "workloads": {
+    "dr-architect": {
+      "budget": 4096,
+      "description": "Architectural design and DR topology analysis",
+      "model": "gemini-3.5-flash"
+    },
+    "alert-triage": {
+      "budget": 250,
+      "description": "Parsing system logs and infrastructure alerts",
+      "model": "gemini-3.5-flash"
+    },
+    "default": {
+      "budget": 150,
+      "description": "General purpose tasks",
+      "model": "gemini-3.5-flash"
+    }
+  }
+}
