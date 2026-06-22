@@ -1,0 +1,20 @@
+{
+  "tasks": {
+    "audit-iam-drift": { "workload": "alert-triage", "clearance": "standard", "human_in_the_loop": false },
+    "check-pii-exposure": { "workload": "alert-triage", "clearance": "high", "human_in_the_loop": true },
+    "validate-firewall-rules": { "workload": "alert-triage", "clearance": "standard", "human_in_the_loop": false },
+    "check-backup-compliance": { "workload": "alert-triage", "clearance": "standard", "human_in_the_loop": false },
+    "report-fiscal-anomaly": { "workload": "alert-triage", "clearance": "high", "human_in_the_loop": true },
+    "lint-terraform-plan": { "workload": "default", "clearance": "standard", "human_in_the_loop": false },
+    "size-gke-node-pool": { "workload": "default", "clearance": "standard", "human_in_the_loop": true },
+    "parse-system-logs": { "workload": "default", "clearance": "standard", "human_in_the_loop": false },
+    "analyze-latency-spikes": { "workload": "default", "clearance": "standard", "human_in_the_loop": false },
+    "verify-container-security": { "workload": "default", "clearance": "standard", "human_in_the_loop": true },
+    "propose-dr-topology": { "workload": "dr-architect", "clearance": "high", "human_in_the_loop": true },
+    "analyze-multi-cloud-cost": { "workload": "dr-architect", "clearance": "high", "human_in_the_loop": true },
+    "design-resilient-microservices": { "workload": "dr-architect", "clearance": "high", "human_in_the_loop": true },
+    "conduct-security-posture-audit": { "workload": "dr-architect", "clearance": "high", "human_in_the_loop": true },
+    "evaluate-new-cloud-service": { "workload": "dr-architect", "clearance": "high", "human_in_the_loop": true },
+    "default": { "workload": "default", "clearance": "standard", "human_in_the_loop": true }
+  }
+}
