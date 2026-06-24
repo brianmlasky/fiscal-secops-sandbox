@@ -1,3 +1,4 @@
+import json
 from google import genai
 from google.genai import types
 
@@ -8,17 +9,32 @@ client = genai.Client(
     location="global"
 )
 
-def run_governed_agent(prompt_text):
-    # Establish the fiscal guardrail (Fail-closed budget)
+def load_policy(workload_name="default"):
+    """Reads the policy.json file to extract the fiscal guardrails."""
+    with open("policy.json", "r") as f:
+        policy = json.load(f)
+    
+    # Fallback to default if workload doesn't exist in policy
+    workloads = policy.get("workloads", {})
+    return workloads.get(workload_name, workloads.get("default"))
+
+def run_governed_agent(prompt_text, workload_name="default"):
+    # 1. Evaluate Policy-as-Code
+    profile = load_policy(workload_name)
+    budget = profile["budget"]
+    target_model = profile["model"]
+    
+    # 2. Establish the fiscal guardrail dynamically
     config = types.GenerateContentConfig(
-        max_output_tokens=4096,  
+        max_output_tokens=budget,  
         temperature=0.2,        
     )
     
-    print("[+] Sending prompt with 4096-token budget using ADC identity...")
+    print(f"[+] Assuming Workload Profile: '{workload_name}'")
+    print(f"[+] Sending prompt to {target_model} with a strictly enforced {budget}-token budget using ADC identity...")
     
     response = client.models.generate_content(
-        model="gemini-3.5-flash", 
+        model=target_model, 
         contents=prompt_text,
         config=config
     )
@@ -44,4 +60,5 @@ def run_governed_agent(prompt_text):
         print(f"Total Tokens: {usage.total_token_count}")
 
 if __name__ == "__main__":
-    run_governed_agent("Explain why an active-passive DR topology is safer than an active-active one.")
+    # Passing the specific workload profile defined in policy.json
+    run_governed_agent("Explain why an active-passive DR topology is safer than an active-active one.", workload_name="dr-architect")
