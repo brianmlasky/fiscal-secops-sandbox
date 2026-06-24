@@ -1,0 +1,5 @@
+local_pg_data/
+*.log
+*.db
+**/__pycache__/
+*.pyc
